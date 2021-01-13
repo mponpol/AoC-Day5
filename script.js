@@ -18,7 +18,7 @@
  */
 
 
-// First we create a Template Literal using ` `
+// Create a Template Literal using ` `
 const entries = 
 `BBBFBFFRLR
 BFFFFFFRLL
@@ -954,9 +954,8 @@ BBFBFBBLLR
 BFFFFFBLLL
 BFFBBFFLLR`
 
-// Convert the string into an array with the split() method, creating an array of substrings.
+// Convert the string into an array with the split() method.
 let entriesArr = entries.split('\n');
-console.log(entriesArr);
 
 let rows = [];
 for (i = 0; i < 128; i++) {
@@ -1655,8 +1654,28 @@ for (i = 0; i < entriesArr.length; i++) {
     seatID[i] = (Number(rowSeat[i]) * 8) + Number(columnSeat[i]);
 }
 
-let maxRowSeat = Math.max(...rowSeat);
-console.log(maxRowSeat);
-
 let maxSeatID = Math.max(...seatID);
-console.log(maxSeatID);
+console.log('The highest seat ID on a boarding pass is ' + maxSeatID);
+
+/*
+ * DAY 5 (II)
+ *
+ * It's a completely full flight, so your seat should be the only missing boarding pass in your
+ * list. However, there's a catch: some of the seats at the very front and back of the plane
+ * don't exist on this aircraft, so they'll be missing from your list as well.
+ * 
+ * Your seat wasn't at the very front or back, though; the seats with IDs +1 and -1 from yours
+ * will be in your list.
+ * 
+ * What is the ID of your seat?
+ */
+
+// To sort into numerical rather than alphabetical order
+seatID.sort((a, b) => a - b);
+
+// As some of the seats at the very front don't exist => i = 1 to omit first result
+for (i = 1; i < seatID.length; i++) {
+    if ((seatID[i] - seatID[i - 1]) != 1) {
+        console.log('The ID of my seat is ' + (seatID[i] - 1));
+    }
+}
